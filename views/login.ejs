@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+<body>
+    <section class="w-[100%] h-[100vh] bg-gray-900 flex flex-col items-center justify-center">
+
+        <h1 class="font-bold text-[60px] text-green-500">TaskList</h1>
+        <div class="w-[51%] h-[60vh]  flex items-center justify-around overflow-hidden">
+            <div class="w-[500px] h-[60vh] bg-white  border border-black flex flex-col items-center justify-center rounded">
+                <form action="/login" method="post" class="flex flex-col items-center  justify-around h-[40vh]">
+                    <h1 class="text-[40px] font-bold text-black">Iniciar sesion</h1>
+                    <div class="flex flex-col justify-around">
+                        <label for="" class="font-bold text-black">Email</label>
+                        <input type="text" name="email" class="w-[400px] p-1 border border-black rounded bg-green-400 text-black placeholder:text-black" placeholder="Escribe tu correo electrónico">
+                    </div>
+                    <div class="flex flex-col justify-around">
+                        <label for="" class="font-bold text-black">Password</label>
+                        <input type="password" name="password" class="w-[400px] p-1 border border-black rounded bg-green-400 text-black placeholder:text-black" placeholder="Escribe tu contraseña">
+                    </div>
+                    <button type="submit" class="bg-green-400  border border-black p-1 rounded font-bold">Iniciar sesion</button>
+                </form>
+            </div>
+            <div class="w-[500px] h-[60vh] bg-green-400  border border-black flex flex-col items-center justify-center rounded">
+                <form action="/register" method="post" class="flex flex-col items-center  justify-around h-[40vh]">
+                    <h1 class="text-[40px] font-bold">Registrarse</h1>
+                    <div class="flex flex-col justify-around">
+                        <label for="" class="font-bold">Username</label>
+                        <input type="text" name="username" class="w-[400px] p-1 border border-black rounded" placeholder="¿Cual es tu nombre?" value="<% if(typeof datos !== 'undefined'){%><%=  datos.username %><%}%>">
+                    </div>
+                    <div class="flex flex-col justify-around">
+                        <label for="" class="font-bold">Email</label>
+                        <input type="text" name="email" class="w-[400px] p-1 border border-black rounded" placeholder="¿Cual es tu correo electrónico?" value="<% if(typeof datos !== 'undefined'){%><%=  datos.email %><%}%>">
+                    </div>
+                    <div class="flex flex-col justify-around">
+                        <label for="" class="font-bold">Password</label>
+                        <input type="password" name="password" class="w-[400px] p-1 border border-black rounded" placeholder="Escribe tu contraseña" value="<% if(typeof datos !== 'undefined'){%><%=  datos.password %><%}%>">
+                    </div>
+                    <button type="submit" class="bg-white border border-black  font-bold p-1 rounded">Registrarse</button>
+                </form>
+            </div>
+        </div>
+        <% try{ %>
+            <% if (typeof validaciones !== 'undefined') { %>
+                <% validaciones.forEach(element => { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p><%= element.msg %></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }) %>
+            <%}else if(typeof registrado !== 'undefined'){%>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p><%= registrado %></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+        <% }catch(e){ %>
+            <% console.log(e) %>
+        <% } %>
+    </section>
+</body>
+    <%- include('partials/footer') %>

@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+<body>
+    <section class="w-[100%] h-[100vh] ">
+        <div class="w-[100%] h-[10vh] border-b  flex items-center justify-between shadow-sm">
+            <h1 class="text-[30px] font-bold m-1">Bienvenido, <%=  username %></h1>
+            <div class="w-[150px] flex items-center justify-center">
+                <form action="/main/logout" method="get">
+                    <button class="bg-red-500 text-white font-bold p-1 rounded  shadow-xl" type="submit">Cerrar sesion</button>
+                </form>
+            </div>
+        </div>
+        <div class="w-[500px] h-[10vh] flex items-center">
+            <h1 class="text-[30px] m-1">Tareas sin asignar</h1>
+        </div>
+        <div class="w-[100%] flex flex-wrap justify-around">
+            <% tasks.forEach(task => { %>
+                <% if (task.state == false) { %>
+                    <div class="w-[450px] h-[130px] border rounded shadow-md flex flex-col  justify-around m-2 p-1 overflow-hidden">
+                        <p class="font-bold text-center"><%= task.title%></p>
+                        <p><strong>Detalles: </strong> <%= task.description%></p>
+                        <div class="flex items-center justify-end w-[425px]">
+                            <select name="" id="" class="border w-[80px] mr-2 rounded">
+                                <% usersList.forEach(user => { %>
+                                    <% if (user.rol != 'administrator') { %>
+                                        <option value="<%= user.name%>"><%= user.name%></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <button class="p-1 bg-green-500 text-white rounded-md">Asignar usuario</button>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+    </section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../public/js/main.js"></script>
+<%- include('partials/footer') %>
